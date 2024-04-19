@@ -15,7 +15,7 @@ program = 'brazos'
 if program == 'brazos':
     window_title = 'BrazosTweaker'
     process_name = 'BrazosTweaker.exe'
-    process_path = f'C:\Program Files\Voicemod Desktop\{process_name}'
+    process_path = f'C:\Program Files\BrazosTweaker\{process_name}'
 else:
     window_title = 'Voicemod'
     process_name = 'VoicemodDesktop.exe'
