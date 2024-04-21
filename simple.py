@@ -49,22 +49,47 @@ class Position:
         self.x = x
         self.y = y
 
-position_list = (Position(30,143), #tab
-                 Position(167,170), #value
+# position_matrix = (Position(30,143), # tab
+#                  Position(167,170), # value
 
-                 Position(77, 145),
-                 Position(166,164),
+#                  Position(77, 145),
+#                  Position(166,164),
 
-                 Position(122,144),
-                 Position(170,163),
+#                  Position(122,144),
+#                  Position(170,163),
 
-                 Position(323,300))
+#                  Position(323,300))
 
+position_matrix = [
+    [30, 143],  # posição para 'tab'
+    [167, 170], # posição para 'value'
+    [77, 145],
+    [166, 164],
+    [122, 144],
+    [170, 163],
+    [323, 300]  # posição final, possivelmente para 'apply' ou 'confirm'
+]
+
+# for pos in position_matrix:
+#     print(f'{pos.x}, {pos.y}')
+print(position_matrix)
+print(f'---- done')
 values_list = ['1,75', '3,25', '5,00']
 
 def move_mouse(x,y):
     ag.moveTo(x,y,d)
-              
+
+# tete de movimentacao do mouuse
+
+for pos in position_matrix:
+    move_mouse(pos)
+
+# for row in position_matrix:
+#     for col in row:
+#         # Concatenate the current element to the string
+#         string_matrix += col
+
+
 def set_value(val):
     if val != None:
         try:
@@ -96,53 +121,18 @@ def move_window_to_zero():
 
 def overclock():
     move_window_to_zero()
-    for idx, position in enumerate(position_list):
-        move_mouse(position.x, position.y) # moves the mouse to a position
+    for idx, position in enumerate(position_matrix):
+        move_mouse(position[0], position[1])  # Acessa x como position[0] e y como position[1]
         value = None
-        if idx < 3:
-            value = values_list[idx-1]
-        print(f'idx {idx-1}, position {str(position)}, value {str(value)}') 
-        try:
-            if value:
-                ag.doubleClick()
-                sleep(0.15)
-                if value != None: ag.write(value)
-            else:
-                print('value doesnt exist')
-
-            if position.x == 323 and position.y == 300:
-                ag.click()
-                print('Aplicado!')
-        except:
-            continue
-        #print(f'valores: ({position_list[idx].x}, {position_list[idx].y}) = {value}')
-
-    # move_mouse(position_list[0].x, position_list[0].y)
-    # ag.doubleClick()
-    # ag.write(values_list[0])
-    # print(f'values_list[] {values_list[0]}')
-
-    # move_mouse(position_list[1].x, position_list[1].y)
-    # ag.doubleClick()
-    # ag.write(values_list[1])
-    # print(f'values_list[] {values_list[1]}')
-
-    # move_mouse(position_list[2].x, position_list[2].y)
-    # ag.doubleClick()
-    # ag.write(values_list[2])
-    # print(f'values_list[] {values_list[2]}')
-
-    # num = 3
-    # move_mouse(position_list[num].x, position_list[num].y)
-
-    # num = 4
-    # move_mouse(position_list[num].x, position_list[num].y)
-
-    # num = 5
-    # move_mouse(position_list[num].x, position_list[num].y)
-
-    #if position.x == 323 and position.y == 300:
-    #   print('click')
+        if idx < len(values_list):
+            value = values_list[idx]
+        print(f'idx {idx}, position {position}, value {value}')
+        if value:
+            ag.doubleClick()
+            sleep(0.15)
+            ag.write(value)
+        else:
+            print('Value does not exist f')
 
 
 print('Primeiro tenha a janela do BrazosTweaker aberta.\n Agora, pressione alguma tecla:\n'+
