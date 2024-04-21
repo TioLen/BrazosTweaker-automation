@@ -40,16 +40,6 @@ def check_processes(process_name):
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
 
-# position_list = [
-#     [30, 143],  # posição para 'tab'
-#     [167, 170], # posição para 'value'
-#     [77, 145],
-#     [166, 164],
-#     [122, 144],
-#     [170, 163],
-#     [323, 300]  # posição final, possivelmente para 'apply' ou 'confirm'
-#]
-
 values_list = ['1,75', '3,25', '5,00']
 
 def move_mouse(x, y):
@@ -63,22 +53,48 @@ def move_window_to_zero():
     sleep(0.25)
 
 def overclock():
+    # Mover a janela para a posição (0,0)
     move_window_to_zero()
-    for idx in range(1, len(position_list), 2):
-        position = position_list[idx]
-        #move_mouse(position[0], position[1])
-        move_mouse(position.x, position.y)
-        print(f'Movendo o mouse para a posição ({position.x}, {position.y})')
 
-        # Verifica se há um valor correspondente em values_list para o índice atual
-        if idx // 2 < len(values_list):
-            value = values_list[idx // 2]
-            ag.doubleClick()
-            sleep(0.15)
-            print(f'idx {idx}, position {position}, value {value}')
-            ag.write(value)
+    profile = 1 # (balance=1)
+    # open dropdown and click
+    move_mouse(36,298)
+    ag.click()
+
+    if profile == 1: #balance
+        move_mouse(36,316)
+        ag.click()
+    elif profile == 2: #ultra
+        move_mouse(36,331)
+        ag.click()
+    elif profile == 3: #max
+        move_mouse(36,343)
+        ag.click()
+
+
+    # Percorrendo todas as posições em position_list
+    for idx, position in enumerate(position_list):
+        # Mover o mouse para cada posição em position_list
+        ag.moveTo(position.x, position.y, 0.75)
+        
+        print(f'Movendo o mouse para a posição ({position.x}, {position.y})')
+        
+        # Verificar se idx é ímpar para atribuir valores de values_list
+        if idx % 2 == 1:
+            if idx // 2 < len(values_list):
+                value = values_list[idx // 2]
+                ag.doubleClick()
+                sleep(0.15)
+                print(f'idx {idx}, position ({position.x}, {position.y}), value {value}')
+                ag.write(value)
+            else:
+                print(f'Sem valor correspondente em values_list para idx {idx}.')
+        elif position.x == 323 and position.y == 300:
+            ag.click()
+            print('\nOverclock aplicado!!')
         else:
-            print(f'Sem valor correspondente em values_list para idx {idx}.')
+            ag.click()
+
 
 print('Primeiro tenha a janela do BrazosTweaker aberta.\nAgora, pressione alguma tecla:\n1 - Fazer overclock\n2 - Sair')
 
