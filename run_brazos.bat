@@ -24,7 +24,9 @@ if '%errorlevel%' NEQ '0' (
     pushd %~dp0
 :--------------------------------------
 
-python .\brazos.py %*
+start "" "C:\Program Files\BrazosTweaker\BrazosTweaker.exe"
+
+python .\brazos_start.py %*
 
 goto end
 

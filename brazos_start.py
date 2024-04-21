@@ -79,17 +79,32 @@ def overclock():
             print('')
             print('##########################')
             print('#  Overclock aplicado!!  #')
-            print('##########################')
+            print('##########################\n')
         else:
             ag.click()
+
+    sleep(1)
+
+    window = gw.getWindowsWithTitle(window_title + ' V1.0.7')[0]
+    window.minimize()
+
+    print('Tenha um bom proveito!\n')
+    sleep(3)
+
+    print('LinkedIn: https://www.linkedin.com/in/tiolen/')
+    sleep(1)
+    print('GitHub: https://github.com/tiolen')
+    print(3)
+
+    print('\nFechando...')
+    sleep(1)
+    exit()
 
 
 #print('Primeiro tenha a janela do BrazosTweaker aberta.\nAgora, pressione alguma tecla:\n1 - Fazer overclock\n2 - Sair')
 
 print(" ##################################################################")
 print(" #                                                                #")
-# print(" #  Primeiro verifique se a janela do BrazosTweaker está aberta,  #")
-# print(" #  e se não estiver, abra o programa e espere.                   #")
 print(" #  A janela do BrazosTweaker abriu ou está abrindo,              #")
 print(" #  por favor espere abrir primeiro.                              #")
 print(" #                                                                #")
@@ -110,9 +125,4 @@ else:
 
 while True:
     if keyboard.is_pressed('escape'):
-        exit()
-    opc = input('\n Fazer novamente?\n1 - sim\n2 - Não\n>')
-    if opc == '1':
-        overclock()
-    else:
         exit()
